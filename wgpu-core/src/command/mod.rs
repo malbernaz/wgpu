@@ -230,8 +230,12 @@ impl CommandEncoderStatus {
                 *self = st;
                 Err(EncoderStateError::Ended)
             }
-            st @ Self::Error(_) => {
-                *self = st;
+            // st @ Self::Error(_) => {
+            //     *self = st;
+            //     Err(EncoderStateError::Invalid)
+            // }
+            Self::Error(err) => {
+                *self = Self::Error(std::dbg!(err));
                 Err(EncoderStateError::Invalid)
             }
             Self::Transitioning => unreachable!(),
